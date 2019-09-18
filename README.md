@@ -331,11 +331,207 @@ Além de manipular os atributos dos elementos, adicionar ou remover elementos em 
 ### **App de Todos**
 
 * **Estrutura do app**
+
+1. Declarar uma lista juntamente com um link de exclusão
+```html
+<div id="app">
+	<ul>
+		<li>
+			Fazer café
+			<a href="#">Excluir</a>
+		</li>
+		<li>
+			Estudar Javascrip
+			<a href="#">Excluir</a>
+		</li>
+		<li>
+			Acessa site do Google
+			<a href="#">Excluir</a>
+		</li>
+	</ul>
+</div>
+```
+2. input com o `todo` e botão de adicionar
+> Após lista
+```javascript
+	<input type="text" placeholder="Digite um todo">
+	<button>Adicionar</button>
+```
+3. Criação do arquivo `todos.js`
+```javascript
+alert('funcionou');
+```
+4. Referenciando o `todos.js` no `script` do HTML
+```html
+<script src="todos.js"></script>
+```
+
 * **Iniciando a aplicação**
+
+1. Referenciar os elementos do HTML no JS
+> todos.js
+```javascript
+var listElement = document.querySelector('#app ul');
+var inputElement = document.querySelector('#app input');
+var butonElement = document.querySelector('#app button');
+```
+2. Possuir a lista de `todos` também no JS
+```javascript
+var todos = [
+	'Fazer café',
+	'Estudar Javascript',
+	'Acessar site do Google'
+];
+```
+3. Tirar a lista estática do html
+```html
+<body>
+	<div id="app">
+		<ul></ul>
+		<input type="text" placeholder="Digite um todo">
+		<button>Adicionar</button>
+	</div>
+	<script src="todos.js"></script>
+</body>
+```
+
 * **Renderizando Todos**
+
+Criar uma função para renderizar a lista de `todos` pelo JS
+```javascript
+function renderTodos(){
+	for(todo of todos){
+		var todoElement = document.createElement('li');
+		var todoText = document.createTextNode(todo);
+
+		todoElement.appendChild(todoText);
+		listElement.appendChild(todoElement);
+	}
+}
+
+renderTodos();
+```
+
 * **Criando Todos**
+
+Dar funcionalidade no botão de `Adicionar`
+```javascript
+function renderTodos(){
+	listElement.innerHTML = '';
+	for(todo of todos){
+		var todoElement = document.createElement('li');
+		var todoText = document.createTextNode(todo);
+
+		todoElement.appendChild(todoText);
+		listElement.appendChild(todoElement);
+	}
+}
+
+renderTodos();
+
+function addTodo() {
+	var todoText = inputElement.value;
+	todos.push(todoText);
+	inputElement.value = '';
+	renderTodos();
+}
+
+butonElement.onclick = addTodo;
+```
+
 * **Excluindo Todos**
+
+Possuir o link de Excluir em todos os `todos`, para isso teremos que alterar a função `renderTodos` pois possui a nossa lista de todos.
+```javascript
+function renderTodos(){
+	listElement.innerHTML = '';
+	for(todo of todos){
+		var todoElement = document.createElement('li');
+		var todoText = document.createTextNode(todo);
+		var linkElement = document.createElement('a');
+		linkElement.setAttribute('href','#');
+		// Vai retornar a posição onde se encontra o texto do todo
+		var pos = todos.indexOf(todo);
+		linkElement.setAttribute('onclick','deleteTodo('+ pos +')');
+		var linkText = document.createTextNode('Excluir');
+		linkElement.appendChild(linkText);
+		todoElement.appendChild(todoText);
+		todoElement.appendChild(linkElement);
+		listElement.appendChild(todoElement);
+	}
+}
+
+renderTodos();
+
+function addTodo() {
+	var todoText = inputElement.value;
+	todos.push(todoText);
+	inputElement.value = '';
+	renderTodos();
+}
+
+buttonElement.onclick = addTodo;
+```
+Criando uma função para deletar o `todo` na posição onde se encontra a opção de exclusão
+```javascript
+function deleteTodo(pos) {
+	todos.splice(pos, 1);
+	renderTodos();
+}
+```
+
 * **Salvando no storage**
+
+Salvar no armazenamento local do navegador para que não seja necessário ficar rendedizando a lista de `todos`
+> `todos.js` final
+```javascript
+var listElement = document.querySelector('#app ul');
+var inputElement = document.querySelector('#app input');
+var buttonElement = document.querySelector('#app button');
+// Usa-se o JSON para que interprete a lista contida no localStorage ou inicia vazio
+var todos = JSON.parse(localStorage.getItem('list_todos')) || [];
+
+function renderTodos(){
+	listElement.innerHTML = '';
+	for(todo of todos){
+		var todoElement = document.createElement('li');
+		var todoText = document.createTextNode(todo);
+		var linkElement = document.createElement('a');
+		linkElement.setAttribute('href','#');
+		// Vai retornar a posição onde se encontra o texto do todo
+		var pos = todos.indexOf(todo);
+		linkElement.setAttribute('onclick','deleteTodo('+ pos +')');
+		var linkText = document.createTextNode('Excluir');
+		linkElement.appendChild(linkText);
+		todoElement.appendChild(todoText);
+		todoElement.appendChild(linkElement);
+		listElement.appendChild(todoElement);
+	}
+}
+
+renderTodos();
+
+function addTodo() {
+	var todoText = inputElement.value;
+	todos.push(todoText);
+	inputElement.value = '';
+	renderTodos();
+	saveToStorage();
+}
+
+buttonElement.onclick = addTodo;
+
+function deleteTodo(pos) {
+	todos.splice(pos, 1);
+	renderTodos();
+	saveToStorage();
+}
+
+function saveToStorage() {
+	// Utiliza-se o JSON para conversar vetor e strings para que o localStorage consiga pegar e armezar a informação
+	localStorage.setItem('list_todos', JSON.stringify(todos));
+}
+```
 
 ### **JS assíncrono**
 
