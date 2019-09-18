@@ -536,8 +536,80 @@ function saveToStorage() {
 ### **JS assíncrono**
 
 * **Requisições AJAX**
+
+São requisições ao backend (servidor) sem precisar recarregar a página.
+
+Utilizando a api de usuários do github e pegando o retorno da mesma
+```javascript
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'https://api.github.com/users/usuario');
+xhr.send(null);
+
+// 
+xhr.onreadystatechange = function () {
+	// quando 4 significa que a resposta voltou
+	if (xhr.readyState === 4 ){
+		console.log(JSON.parse(xhr.responseText));
+	}
+}
+```
+
 * **Promises**
+
+São códigos que não vão influenciar na linha do tempo do código JS.
+
+É uma classe que permite trabalhar com métodos de respostas e erros, como a api que estamos utilizando, trabalhando de forma assíncrona dentro do JS.
+```javascript
+var minhaPromise = function () {
+	return new Promise(function(resolve, reject){
+		// resolve e reject também são funções
+		// resolve é quando o resultado obteve sucesso
+		// reject é quando o resultado não obteve sucesso
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET','https://api.github.com/users/usuario');
+		xhr.send(null);
+
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				if (xhr.status === 200){
+					resolve(JSON.parse(xhr.responseText));
+				} else {
+					reject('Erro na requisição');
+				}
+			}
+		}
+	});
+}
+
+minhaPromise()
+	.then(function(response){
+		console.log(response);
+	})
+	.catch(function(error) {
+		console.warn(error);
+	});
+```
+
 * **Utilizando Axios**
+
+Usando a biblioteca Axios para fazer requisições assíncronas do projeto JS.
+
+> Inserindo o script no HTML para importar o Axios
+```html
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="main.js"></script>
+```
+> Nova forma usando o axios
+```javascript
+axios.get('https://api.github.com/users/luanalvesdaniel')
+	.then(function(response){
+		console.log(response);
+	})
+	.catch(function(error) {
+		console.warn(error);
+	});
+```
 
 ## **Curso JavaScript ES6**
 ## **NodeJS**
