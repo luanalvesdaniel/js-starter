@@ -211,10 +211,122 @@ setTimeout(exibeAlgo, 5000);
 
 ### **Manipulando a DOM**
 
+A DOM é basicamente a àrvore de elementos dentro do HTML no qual o JavaScript poderá controlar.
+
+> Inserir no começo da tag `body`:
+```html
+<div id="app">
+	<button>Me pressione</button>
+</div>
+```
+
 * **Eventos inline**
+
+> Dentro do `body`
+```html
+<div id="app">
+	<button onclick="mostraAlerta()">Me pressione</button>
+	<input type="text" onkeypress="mostraAlerta()"/>
+</div>
+```
+
+> Dentro do `script`
+```javascript
+function mostraAlerta(){
+	alert('Botão foi clicado');
+}
+```
+
 * **Trabalhando com a DOM**
+
+Referenciar/buscar os elementos em tela do HTML através do JavaScript.
+`getElement` irá procurar e selecionar o elemento através de algum atributo dele.
+`querySelector` irá percorrer toda a DOM.
+
+> Exemplos:
+```html
+<div id="app">
+	<input type="text" name="nome" id="nome" class="nome"/>
+	<input type="text" name="nome" id="nome2"/>
+	<button class="botao">Adicionar</button>
+</div>
+```
+```javascript
+// Exemplo 1
+var inputElement1 = document.getElementById('nome');
+console.log(inputElement1);
+
+// Exemplo 2
+var inputElement2 = document.getElementsByTagName('input')[1];
+console.log(inputElement2);
+
+// Exemplo 3
+var inputElement3 = document.getElementsByClassName('nome');
+console.log(inputElement3);
+
+// Exemplo 4 e mais indicado
+var inputElement4 = document.querySelector('body div#app input'); 
+//Procurando pelo atributo = ('input[name=nome]');
+//Retornar todos os elementos input = querySelectorAll('input'); 
+console.log(inputElement4);
+
+// Pegando os elementos do HTML e referenciando no JS
+var inputElement5 = document.querySelector('input[name=nome]');
+var btnElement = document.querySelector('button.botao');
+
+// Apresenta Alerta caso botão clicado
+btnElement.onclick = function(){
+	//Pegar o texto inserido no campo e retornar no alert após clicar em Adicionar
+	var text = inputElement5.value;
+	alert(text);
+}
+```
+
 * **Lidando com elementos**
+
+Além de manipular os elementos do HTML através do JS, também conseguimos criar novos elementos também pelo JS, assim como remove-los
+```html
+<div id="app">
+	<input id="nome"/>
+</div>
+```
+```javascript
+// Criando o elemento e os atributos
+var linkElement = document.createElement('a');
+linkElement.setAttribute('href', 'https://www.google.com');
+linkElement.setAttribute('title', 'Site do google');
+linkElement.setAttribute('id', 'googlesite');
+
+// Criando um texto e atribuindo ao href
+var textElement = document.createTextNode('Acessar Google');
+linkElement.appendChild(textElement);
+
+// Referenciando a div e inserindo o link
+var containerElement = document.querySelector('#app');
+containerElement.appendChild(linkElement);
+
+// Removendo um elemento da DOM pelo JS
+var inputElement = document.querySelector('#nome');
+containerElement.removeChild(inputElement);
+```
+
 * **Alterando estilos**
+
+Além de manipular os atributos dos elementos, adicionar ou remover elementos em tela, conseguimos controlar as estilizações CSS dos elementos através do JS.
+```html
+<body>
+	<div id="app">
+		<div class="box"></div>
+	</div>
+
+	<script>
+		var boxElement = document.querySelector('.box');
+		boxElement.style.width = 100;
+		boxElement.style.height = 100;
+		boxElement.style.backgroundColor = '#f00';
+	</script>
+</body>
+```
 
 ### **App de Todos**
 
