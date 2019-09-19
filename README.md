@@ -612,6 +612,75 @@ axios.get('https://api.github.com/users/luanalvesdaniel')
 ```
 
 ## **Curso JavaScript ES6**
+
+### **Conceitos**
+
+**Introdução**
+- ES (Ecma Script)
+- 6 é a versão, sendo ano de lançamento + 1, ou seja, ES6 é de 2015
+- O Ecma Script formula e define as novas funcionalidades do Javascript
+- Comparando o antes e a partir do ES6 o Javascript é completamente diferente, com exceção da sintaxe
+- Com o avanço da tecnologia e internet, os navegadores atualmente são considerados um pouco lentos quando comparados com esse avanço, inclusive alguns navegadores podem não entender as novas diretrizes do ES6 em diante. Portanto iremos utilizar o `Babel`, sendo uma funcionalidade que irá pegar o código desenvolvido e converter o mesmo em um código que todos os navegadores entendam as novas formas de escrever os códigos.
+
+**Instalando Node & Yarn**
+
+NodeJS é uma importante ferramenta para possuirmos todas as dependências que necessitamos ao nosso projeto
+* [Baixar NodeJS](https://nodejs.org/en/)
+> Para validar basta digitar `node -v` para verificar a versão instalada
+
+Yarn é um gerenciador de pacotes do javascript, onde será utilizado para instalar ferramentas de outras empresas/pessoas em nosso projeto para que possamos usar essas funcionalidades e nossa aplicação
+* [Baixar Yarn](https://yarnpkg.com/pt-BR/docs/install) 
+> Para validar basta digitar `yarn -v` para verificar a versão instalada
+
+**Configurando Babel**
+
+1. Iniciar o terminal e executar o comando `yarn init`
+	* Irá criar o arquivo `package.json` dentro da raiz do projeto, onde armazena as informações de dependências da nossa aplicação, como ferramentas de outras empresas/pessoas
+2. Instalando as demais dependências
+	* `yarn add @babel/cli`
+	> babel/cli permitirá uma interface de linha de comando do babel, como já fazemos com o `yarn add` por exemplo
+	* `yarn add @babel/preset-env`
+	> Criará o arquivo `yarn.lock`, sendo uma forma de cache
+	> Criará a pasta `node_modules` com vários arquivos, onde armazena todas as dependências do projeto
+
+
+**Classes**
+
+**Const & Let**
+
+**Operações em Array**
+
+**Arrow Functions**
+
+**Valores padrão**
+
+**Desestruturação**
+
+**Operadores rest/spread**
+
+**Template Literals**
+
+**Object Shot Syntax**
+
+### **Webpack Server**
+
+**Configurando Webpack**
+**Importe/export**
+**Webpack dev server**
+
+### **Async/await**
+
+**Async/await**
+**Configurando Axios**
+
+### **Aplicação com ES6+**
+
+**Estrutura e estilos**
+**Adicionar repositório**
+**Render em tela**
+**Buscando da API**
+**Loading e error**
+
 ## **NodeJS**
 ## **ReactJS**
 ## **React Native**
